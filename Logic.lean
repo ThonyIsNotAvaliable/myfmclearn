@@ -9,10 +9,7 @@ variable (P Q R : Prop)
 
 theorem doubleneg_intro :
   P → ¬ ¬ P  := by
-  intro P
-  intro notP
-  apply notP P
-
+  sorry
 
 theorem doubleneg_elim :
   ¬ ¬ P → P  := by
@@ -29,22 +26,12 @@ theorem doubleneg_law :
 
 theorem disj_comm :
   (P ∨ Q) → (Q ∨ P)  := by
-  intro hpq
-  cases hpq with
-  | inl hp =>
-    right
-    exact hp
-  | inr hq =>
-    left
-    exact hq
-
+  sorry
 
 theorem conj_comm :
   (P ∧ Q) → (Q ∧ P)  := by
-  intro hpq
-  cases hpq with
-  | intro hp hq =>
-    exact ⟨hq, hp⟩ 
+  sorry
+
 
 ------------------------------------------------
 -- Interdefinability of →,∨
