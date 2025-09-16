@@ -153,10 +153,9 @@ theorem peirce_law_weak :
     apply ptoqtop
     intro p
     contradiction
-
-
-
-  --sorry
+    --Aqui é dificil explicar oque ocorre
+    --apply muda o alvo, pq meio q o alvo antes de ptoqtop  bate com o alvo atual
+    --assim eu introduzo p e como tenho o not p, contradição é trivial
 
 
 ------------------------------------------------
@@ -165,7 +164,11 @@ theorem peirce_law_weak :
 
 theorem impl_linear :
   (P → Q) ∨ (Q → P)  := by
+
+
   sorry
+
+  --Realmente não sei
 
 
 ------------------------------------------------
@@ -174,12 +177,29 @@ theorem impl_linear :
 
 theorem disj_as_negconj :
   P ∨ Q → ¬ (¬ P ∧ ¬ Q)  := by
-  sorry
+  intro porq
+  intro denyNotPorNotQ
+  cases denyNotPorNotQ with
+  | intro notP notQ =>
+    cases porq with
+    | inl hp =>
+      contradiction
+
+    | inr hq =>
+      contradiction
 
 theorem conj_as_negdisj :
   P ∧ Q → ¬ (¬ P ∨ ¬ Q)  := by
-  sorry
+  intro hpq
+  cases hpq with
+  | intro hp hq =>
+    intro denyNotPorNotQ
+    cases denyNotPorNotQ with
+    | inl notP =>
+      contradiction
 
+    | inr notQ =>
+      contradiction
 
 ------------------------------------------------
 -- De Morgan laws for ∨,∧
@@ -187,7 +207,21 @@ theorem conj_as_negdisj :
 
 theorem demorgan_disj :
   ¬ (P ∨ Q) → (¬ P ∧ ¬ Q)  := by
-  sorry
+  intro denyPorQ
+
+  constructor
+  case left =>
+    intro hp
+    apply denyPorQ
+    left
+    exact hp
+
+  case right =>
+    intro hq
+    apply denyPorQ
+    right
+    exact hq
+
 
 theorem demorgan_disj_converse :
   (¬ P ∧ ¬ Q) → ¬ (P ∨ Q)  := by
