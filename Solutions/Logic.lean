@@ -244,7 +244,7 @@ theorem demorgan_conj :
   intro q
   apply denyPQ
 
-  --Não sei como consigo pegar o P, por ser uma disjunção,
+  --Não sei como consigo pegar o P, por ser uma disjunção:
   --só consigo alcançar um lado
 
   sorry
@@ -265,11 +265,67 @@ theorem demorgan_conj_converse :
 
 theorem demorgan_conj_law :
   ¬ (P ∧ Q) ↔ (¬ Q ∨ ¬ P)  := by
-  sorry
+  constructor
+  case mp =>
+    intro denyPQ
+    left
+    intro q
+    apply denyPQ
+
+
+    --Mesmo caso de *demorgan_conj*
+    sorry
+
+  case mpr =>
+    intro notQNotP
+    cases notQNotP with
+    | inl notQ =>
+      intro PQ
+      cases PQ with
+      | intro hp hq =>
+        contradiction
+
+
+    | inr notP =>
+      intro PQ
+      cases PQ with
+      | intro hp hq =>
+        contradiction
+
 
 theorem demorgan_disj_law :
   ¬ (P ∨ Q) ↔ (¬ P ∧ ¬ Q)  := by
-  sorry
+
+  constructor
+  case mp =>
+    intro denyPQ
+
+    constructor
+    case left =>
+      intro p
+      apply denyPQ
+      left
+      exact p
+
+    case right =>
+      intro q
+      apply denyPQ
+      right
+      exact q
+
+
+  case mpr =>
+    intro NotPNotQ
+    intro PorQ
+    cases NotPNotQ with
+    | intro notP notQ =>
+      cases PorQ with
+      | inl p =>
+        apply notP p
+
+      | inr q =>
+        apply notQ q
+
 
 
 ------------------------------------------------
