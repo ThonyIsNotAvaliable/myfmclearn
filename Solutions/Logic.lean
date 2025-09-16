@@ -225,7 +225,17 @@ theorem demorgan_disj :
 
 theorem demorgan_disj_converse :
   (¬ P ∧ ¬ Q) → ¬ (P ∨ Q)  := by
-  sorry
+  intro notPorNotQ
+  cases notPorNotQ with
+    | intro notP notQ =>
+      intro porq
+      cases porq with
+        | inl hp =>
+          contradiction
+
+        | inr hq =>
+          contradiction
+
 
 theorem demorgan_conj :
   ¬ (P ∧ Q) → (¬ Q ∨ ¬ P)  := by
