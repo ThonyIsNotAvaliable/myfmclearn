@@ -239,11 +239,29 @@ theorem demorgan_disj_converse :
 
 theorem demorgan_conj :
   ¬ (P ∧ Q) → (¬ Q ∨ ¬ P)  := by
+  intro denyPQ
+  left
+  intro q
+  apply denyPQ
+
+  --Não sei como consigo pegar o P, por ser uma disjunção,
+  --só consigo alcançar um lado
+
   sorry
 
 theorem demorgan_conj_converse :
   (¬ Q ∨ ¬ P) → ¬ (P ∧ Q)  := by
-  sorry
+  intro notQorNotP
+  intro PandQ
+  cases PandQ with
+  | intro hp hq =>
+    cases notQorNotP with
+    | inl hnotQ =>
+      contradiction
+
+    | inr hnotP =>
+      contradiction
+
 
 theorem demorgan_conj_law :
   ¬ (P ∧ Q) ↔ (¬ Q ∨ ¬ P)  := by
