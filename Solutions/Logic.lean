@@ -44,7 +44,7 @@ theorem conj_comm :
   intro hpq
   cases hpq with
   | intro hp hq =>
-    exact ⟨hq, hp⟩ 
+    exact ⟨hq, hp⟩
 
 ------------------------------------------------
 -- Interdefinability of →,∨
@@ -52,11 +52,26 @@ theorem conj_comm :
 
 theorem impl_as_disj_converse :
   (¬ P ∨ Q) → (P → Q)  := by
-  sorry
+  intro npq
+  intro p
+  cases npq with
+  | inl np =>
+    contradiction
+
+  | inr hq =>
+    exact hq
+
 
 theorem disj_as_impl :
   (P ∨ Q) → (¬ P → Q)  := by
-  sorry
+  intro hpouq
+  intro np
+  cases hpouq with
+  | inl np =>
+    contradiction
+
+  | inr hq =>
+    exact hq
 
 
 ------------------------------------------------
@@ -65,15 +80,36 @@ theorem disj_as_impl :
 
 theorem impl_as_contrapositive :
   (P → Q) → (¬ Q → ¬ P)  := by
-  sorry
+  intro hptoq
+  intro nq
+  intro p
+  have hq : Q := hptoq p
+  apply nq hq
+
 
 theorem impl_as_contrapositive_converse :
   (¬ Q → ¬ P) → (P → Q)  := by
-  sorry
+  intro nqtonp
+  intro hp
+
+  sorry -- Não sei n
+
 
 theorem contrapositive_law :
   (P → Q) ↔ (¬ Q → ¬ P)  := by
-  sorry
+  constructor
+  case mp =>
+    intro hptoq
+    intro nq
+    intro p
+    have hq : Q := hptoq p
+    contradiction
+
+  case mpr =>
+    intro nqtonp
+    intro p
+    sorry -- Morri na praia
+
 
 
 ------------------------------------------------
@@ -82,7 +118,19 @@ theorem contrapositive_law :
 
 theorem lem_irrefutable :
   ¬ ¬ (P ∨ ¬ P)  := by
-  sorry
+
+  intro hdenypornotp
+  apply hdenypornotp
+
+  by_cases lem : P
+  case pos =>
+    left
+    exact lem
+
+  case neg =>
+    right
+    exact lem
+
 
 
 ------------------------------------------------
