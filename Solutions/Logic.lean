@@ -139,7 +139,24 @@ theorem lem_irrefutable :
 
 theorem peirce_law_weak :
   ((P → Q) → P) → ¬ ¬ P  := by
-  sorry
+  intro ptoqtop
+
+
+  by_cases lem : P
+  case pos =>
+    intro notp
+    contradiction
+
+  case neg =>
+    intro notp
+    apply notp
+    apply ptoqtop
+    intro p
+    contradiction
+
+
+
+  --sorry
 
 
 ------------------------------------------------
