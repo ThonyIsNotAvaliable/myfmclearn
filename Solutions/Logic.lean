@@ -376,7 +376,29 @@ theorem distr_conj_disj_converse :
 
 theorem distr_disj_conj :
   P ∨ (Q ∧ R) → (P ∨ Q) ∧ (P ∨ R)  := by
-  sorry
+  intro hPorQR
+
+  constructor
+  case left =>
+    cases hPorQR with
+    | inl hP =>
+      left
+      exact hP
+    | inr hQR =>
+      right
+      cases hQR with
+      | intro hQ hR =>
+        exact hQ
+  case right =>
+    cases hPorQR with
+    | inl hP =>
+      left
+      exact hP
+    | inr hQR =>
+      right
+      cases hQR with
+      | intro hQ hR =>
+        exact hR
 
 theorem distr_disj_conj_converse :
   (P ∨ Q) ∧ (P ∨ R) → P ∨ (Q ∧ R)  := by
