@@ -548,12 +548,13 @@ theorem conj_idem :
 
 theorem false_bottom :
   False → P := by
-  sorry
+  intro no
+  contradiction
 
 theorem true_top :
   P → True  := by
-  sorry
-
+  intro hP
+  trivial
 
 end propositional
 
