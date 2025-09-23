@@ -210,11 +210,17 @@ theorem peirce_law_weak :
 
 theorem impl_linear :
   (P → Q) ∨ (Q → P)  := by
+  by_cases lemP: P
+  case pos =>
+    right
+    intro hQ
+    trivial
 
+  case neg =>
+    left
+    intro hP
+    contradiction
 
-  sorry
-
-  --Realmente não sei
 
 
 ------------------------------------------------
