@@ -286,9 +286,24 @@ theorem demorgan_disj_converse :
 theorem demorgan_conj :
   ¬ (P ∧ Q) → (¬ Q ∨ ¬ P)  := by
   intro denyPQ
-  left
-  intro q
-  apply denyPQ
+  by_cases lemP: P
+  case pos =>
+
+    by_cases lemQ: Q
+    case pos =>
+      right
+      intro hP
+      apply denyPQ
+      exact ⟨lemP, lemQ⟩
+
+    case neg =>
+      left
+      exact lemQ
+
+  case neg =>
+
+    right
+    exact lemP
 
   --Não sei como consigo pegar o P, por ser uma disjunção:
   --só consigo alcançar um lado
