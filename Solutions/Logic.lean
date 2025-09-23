@@ -496,11 +496,20 @@ theorem distr_disj_conj_converse :
 
 theorem curry_prop :
   ((P ∧ Q) → R) → (P → (Q → R))  := by
-  sorry
+  intro hPQtoR
+  intro hp
+  intro hq
+  apply hPQtoR
+  trivial
 
 theorem uncurry_prop :
   (P → (Q → R)) → ((P ∧ Q) → R)  := by
-  sorry
+  intro hPtoQtoR
+  intro hPQ
+  cases hPQ with
+  | intro hP hQ =>
+    apply hPtoQtoR hP hQ
+
 
 
 ------------------------------------------------
@@ -509,7 +518,8 @@ theorem uncurry_prop :
 
 theorem impl_refl :
   P → P  := by
-  sorry
+  intro hP
+  trivial
 
 
 ------------------------------------------------
@@ -518,20 +528,26 @@ theorem impl_refl :
 
 theorem weaken_disj_right :
   P → (P ∨ Q)  := by
-  sorry
+  intro hP
+  left
+  trivial
 
 theorem weaken_disj_left :
   Q → (P ∨ Q)  := by
-  sorry
+  intro hQ
+  right
+  trivial
 
 theorem weaken_conj_right :
   (P ∧ Q) → P  := by
-  sorry
+  intro hPQ
+  exact hPQ.left
+
 
 theorem weaken_conj_left :
   (P ∧ Q) → Q  := by
-  sorry
-
+  intro hPQ
+  exact hPQ.right
 
 ------------------------------------------------
 -- Idempotence of ∨,∧
@@ -539,11 +555,32 @@ theorem weaken_conj_left :
 
 theorem disj_idem :
   (P ∨ P) ↔ P  := by
-  sorry
+  constructor
+  case mp =>
+    intro hPorP
+    cases hPorP with
+    | inl hP =>
+      trivial
+
+    | inr hP2 =>
+      trivial
+
+  case mpr =>
+    intro hP
+    left
+    trivial
 
 theorem conj_idem :
   (P ∧ P) ↔ P := by
-  sorry
+  constructor
+  case mp =>
+    intro hPP
+    exact hPP.left
+
+  case mpr =>
+    intro hP
+    exact ⟨hP, hP⟩
+
 
 
 ------------------------------------------------
