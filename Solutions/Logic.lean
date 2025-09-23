@@ -16,11 +16,33 @@ theorem doubleneg_intro :
 
 theorem doubleneg_elim :
   ¬ ¬ P → P  := by
-  sorry
+  intro nP
+
+  by_cases lem: P
+  case pos =>
+    assumption
+
+  case neg =>
+    contradiction
+
 
 theorem doubleneg_law :
   ¬ ¬ P ↔ P  := by
-  sorry
+  constructor
+  case mp =>
+    intro nP
+
+    by_cases lem: P
+    case pos =>
+      assumption
+
+    case neg =>
+      contradiction
+
+  case mpr =>
+    intro P
+    intro notP
+    apply notP P
 
 
 ------------------------------------------------
@@ -92,7 +114,19 @@ theorem impl_as_contrapositive_converse :
   intro nqtonp
   intro hp
 
-  sorry -- Não sei n
+  by_cases lemQ: Q
+  case pos =>
+    assumption
+
+  case neg =>
+    by_cases lemP: P
+    case pos =>
+      have hnP: ¬P := nqtonp lemQ
+      contradiction
+
+    case neg =>
+      contradiction
+
 
 
 theorem contrapositive_law :
@@ -107,8 +141,20 @@ theorem contrapositive_law :
 
   case mpr =>
     intro nqtonp
-    intro p
-    sorry -- Morri na praia
+    intro hp
+
+    by_cases lemQ: Q
+    case pos =>
+      assumption
+
+    case neg =>
+      by_cases lemP: P
+      case pos =>
+        have hnP: ¬P := nqtonp lemQ
+        contradiction
+
+      case neg =>
+        contradiction
 
 
 
@@ -402,6 +448,19 @@ theorem distr_disj_conj :
 
 theorem distr_disj_conj_converse :
   (P ∨ Q) ∧ (P ∨ R) → P ∨ (Q ∧ R)  := by
+
+  intro PorQPorR
+  cases PorQPorR with
+  | intro hPorQ hPorR =>
+    cases hPorQ with
+    | inl hP =>
+      left
+      exact hP
+
+    | inr hQ =>
+      exact ⟨⟩
+
+
   sorry
 
 
