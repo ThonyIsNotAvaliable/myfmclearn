@@ -610,7 +610,7 @@ end propositional
 section predicate
 
 variable (U : Type)
-variable (P Q : U → Type)
+variable (P Q : U → Prop)
 
 
 ------------------------------------------------
@@ -619,11 +619,19 @@ variable (P Q : U → Type)
 
 theorem demorgan_exists :
   ¬ (∃ x, P x) → (∀ x, ¬ P x)  := by
-  sorry
+  intro hdenyExPx
+  intro hx
+  intro hU
+
+  have hPx : (∃ x, P x) := by
+    apply Exists.intro hx hU
+
+  contradiction
+
 
 theorem demorgan_exists_converse :
   (∀ x, ¬ P x) → ¬ (∃ x, P x)  := by
-  sorry
+
 
 theorem demorgan_forall :
   ¬ (∀ x, P x) → (∃ x, ¬ P x)  := by
