@@ -305,10 +305,6 @@ theorem demorgan_conj :
     right
     exact lemP
 
-  --Não sei como consigo pegar o P, por ser uma disjunção:
-  --só consigo alcançar um lado
-
-  sorry
 
 theorem demorgan_conj_converse :
   (¬ Q ∨ ¬ P) → ¬ (P ∧ Q)  := by
@@ -329,13 +325,24 @@ theorem demorgan_conj_law :
   constructor
   case mp =>
     intro denyPQ
-    left
-    intro q
-    apply denyPQ
+    by_cases lemP: P
+    case pos =>
 
+      by_cases lemQ: Q
+      case pos =>
+        right
+        intro hP
+        apply denyPQ
+        exact ⟨lemP, lemQ⟩
 
-    --Mesmo caso de *demorgan_conj*
-    sorry
+      case neg =>
+        left
+        exact lemQ
+
+    case neg =>
+
+      right
+      exact lemP
 
   case mpr =>
     intro notQNotP
