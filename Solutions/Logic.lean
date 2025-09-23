@@ -480,10 +480,14 @@ theorem distr_disj_conj_converse :
       exact hP
 
     | inr hQ =>
-      exact ⟨⟩
+      cases hPorR with
+      | inl hP =>
+        left
+        assumption
 
-
-  sorry
+      | inr hR =>
+        right
+        exact ⟨hQ, hR⟩
 
 
 ------------------------------------------------
