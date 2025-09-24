@@ -649,25 +649,13 @@ theorem demorgan_forall :
 
   intro notExnotPx
   apply notFAtPx
-  intro hU
+  intro hx
 
   apply Classical.not_not.mp --Salva vidas
 
-  intro hx
+  intro hnotPX
   apply notExnotPx
-  apply Exists.intro hU hx
-
-
-
-
-
-
-
-
-
-
-
-
+  apply Exists.intro hx hnotPX
 
 
 theorem demorgan_forall_converse :
