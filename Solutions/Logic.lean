@@ -617,6 +617,10 @@ variable (P Q : U → Prop)
 -- De Morgan laws for ∃,∀
 ------------------------------------------------
 
+
+-- have name: tipo := by
+-- [demons]
+
 theorem demorgan_exists :
   ¬ (∃ x, P x) → (∀ x, ¬ P x)  := by
   intro hdenyExPx
@@ -631,11 +635,40 @@ theorem demorgan_exists :
 
 theorem demorgan_exists_converse :
   (∀ x, ¬ P x) → ¬ (∃ x, P x)  := by
+  intro hFAxnotPx
+  intro hExPx
+  cases hExPx with
+  | intro a ha
+  apply hFAxnotPx a ha
 
 
 theorem demorgan_forall :
   ¬ (∀ x, P x) → (∃ x, ¬ P x)  := by
-  sorry
+  intro notFAtPx
+  apply Classical.byContradiction
+
+  intro notExnotPx
+  apply notFAtPx
+  intro hU
+
+  apply Classical.not_not.mp --Salva vidas
+
+  intro hx
+  apply notExnotPx
+  apply Exists.intro hU hx
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 theorem demorgan_forall_converse :
   (∃ x, ¬ P x) → ¬ (∀ x, P x)  := by
